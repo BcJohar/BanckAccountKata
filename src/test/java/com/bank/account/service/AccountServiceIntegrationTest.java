@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 public class AccountServiceIntegrationTest {
 
-    private static final String CLIENT_ID = UUID.randomUUID().toString();
+    private static String CLIENT_ID;
 
     @Autowired
     private AccountService accountService;
@@ -30,11 +29,10 @@ public class AccountServiceIntegrationTest {
     @Before
     public void before() {
         Client client = Client.builder()
-                .id(CLIENT_ID)
                 .firstname("Client 1 name")
                 .lastname("Client 2 lastname")
                 .build();
-        clientRepository.save(client);
+        CLIENT_ID = clientRepository.save(client).getId();
     }
 
     @Test

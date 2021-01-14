@@ -9,7 +9,6 @@ import java.time.Instant;
 import java.util.Currency;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import static com.bank.account.util.CurrencyUtil.convertAmount;
 import static com.bank.account.util.ValidatorUtil.validate;

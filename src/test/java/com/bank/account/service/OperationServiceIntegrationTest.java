@@ -8,7 +8,6 @@ import com.bank.account.repository.AccountRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
 
 import com.bank.account.repository.ClientRepository;
 import com.bank.account.repository.OperationRepository;
@@ -26,8 +25,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @RunWith(SpringRunner.class)
 public class OperationServiceIntegrationTest {
 
-    private static final String CLIENT_ID = UUID.randomUUID().toString();
-    private static final String ACCOUNT_ID = UUID.randomUUID().toString();
+    private static String CLIENT_ID;
+    private static String ACCOUNT_ID;
 
     @Autowired
     private OperationService operationService;
@@ -44,18 +43,16 @@ public class OperationServiceIntegrationTest {
     @Before
     public void before() {
         Client client = Client.builder()
-                    .id(CLIENT_ID)
                     .firstname("Name 1")
                     .lastname("Lastname 1")
                     .build();
-        clientRepository.save(client);
+        CLIENT_ID = clientRepository.save(client).getId();
 
         Account account = Account.builder()
-                .id(ACCOUNT_ID)
                 .name("Account 1")
                 .clientId(CLIENT_ID)
                 .build();
-        accountRepository.save(account);
+        ACCOUNT_ID = accountRepository.save(account).getId();
     }
 
     @Test
